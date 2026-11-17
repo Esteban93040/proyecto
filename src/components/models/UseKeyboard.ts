@@ -6,12 +6,13 @@ export function useKeyboard() {
     backward: false,
     left: false,
     right: false,
+    jump: false,
   })
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Evitar que las flechas muevan la página si no se está escribiendo en un input
-      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) {
+      // Evitar que las flechas o el espacio muevan la página si no se está escribiendo en un input
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space'].includes(e.code)) {
         const tag = (e.target as HTMLElement)?.tagName?.toLowerCase()
         if (tag !== 'input' && tag !== 'textarea') {
           e.preventDefault()
@@ -35,6 +36,9 @@ export function useKeyboard() {
         case 'ArrowRight':
           keys.current.right = true
           break
+        case 'Space':
+          keys.current.jump = true
+          break
       }
     }
 
@@ -55,6 +59,9 @@ export function useKeyboard() {
         case 'KeyD':
         case 'ArrowRight':
           keys.current.right = false
+          break
+        case 'Space':
+          keys.current.jump = false
           break
       }
     }
