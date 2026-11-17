@@ -1,11 +1,9 @@
-import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
-
-type Language = 'es' | 'en';
+import { useLang } from '../../context/LangContext';
 
 const navigation = {
   es: [
@@ -21,15 +19,15 @@ const navigation = {
 };
 
 export default function Navbar() {
-  const [language, setLanguage] = useState<Language>('es');
-  const nextLanguage = language === 'es' ? 'en' : 'es';
+  const { lang, setLang } = useLang();
+  const next = lang === 'es' ? 'en' : 'es';
 
   return (
     <AppBar
       component="header"
-      position="static"
+      position="sticky"
       elevation={0}
-      sx={{ bgcolor: "transparent", color: 'red' }}
+      sx={{ bgcolor: '#00000099', backdropFilter: 'blur(10px)', color: '#fff' }}
     >
       <Container maxWidth="xl">
         <Toolbar
@@ -41,20 +39,22 @@ export default function Navbar() {
             gap: { xs: 1, sm: 2 },
           }}
         >
+          {/* Language toggle — left slot */}
           <Button
-            onClick={() => setLanguage(nextLanguage)}
-            aria-label={`Cambiar idioma a ${nextLanguage === 'es' ? 'español' : 'inglés'}`}
-            sx={{ justifySelf: 'start', minWidth: 0, px: { xs: 1, sm: 1.5 } }}
+            onClick={() => setLang(next)}
+            aria-label={`Cambiar idioma a ${next === 'es' ? 'español' : 'inglés'}`}
+            sx={{ justifySelf: 'start', minWidth: 0, px: { xs: 1, sm: 1.5 }, color: '#fff' }}
           >
-            {language === 'es' ? 'EN' : 'ES'}
+            {next.toUpperCase()}
           </Button>
 
+          {/* Nav links — center */}
           <Box
             component="nav"
-            aria-label={language === 'es' ? 'Navegación principal' : 'Main navigation'}
+            aria-label={lang === 'es' ? 'Navegación principal' : 'Main navigation'}
             sx={{ display: 'flex', justifyContent: 'center', gap: { xs: 0, sm: 1 } }}
           >
-            {navigation[language].map(({ label, href }) => (
+            {navigation[lang].map(({ label, href }) => (
               <Button
                 key={href}
                 component="a"
@@ -71,6 +71,7 @@ export default function Navbar() {
               </Button>
             ))}
           </Box>
+
           <Box />
         </Toolbar>
       </Container>
