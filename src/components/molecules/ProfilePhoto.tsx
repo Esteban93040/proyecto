@@ -30,7 +30,7 @@ export default function ProfilePhoto({ src, alt = 'Foto de perfil', size = { xs:
         <Box component="img" src={src} alt={alt} sx={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       ) : (
         <Typography sx={{ color: '#ffffff55', fontSize: 13, textAlign: 'center', px: 2 }}>
-          Tu foto aquí
+          foto
         </Typography>
       )}
     </Box>

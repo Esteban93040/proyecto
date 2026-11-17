@@ -15,7 +15,7 @@ const experienceData = {
         department: 'Escuela de Ingeniería Civil y Geomática',
         period: '2023 - Presente', // ← Puedes ajustar el período
         description:
-          'Gestión de procesos administrativos, soporte técnico a usuarios, mantenimiento y asistencia en actividades operativas de la escuela.',
+          'descripción',
       },
     ],
   },
@@ -29,7 +29,7 @@ const experienceData = {
         department: 'School of Civil and Geomatic Engineering',
         period: '2023 - Present', // ← Adjust period as needed
         description:
-          'Management of administrative processes, technical support to users, maintenance, and assistance in operational activities of the school.',
+          'description',
       },
     ],
   },
