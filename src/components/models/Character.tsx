@@ -116,7 +116,7 @@ export function Character({
     // Sombra de contacto que sigue el suelo real
     if (shadowRef.current) {
       const heightAboveGround = Math.max(0, nextY - groundY)
-      shadowRef.current.position.y = -heightAboveGround + 0.02
+      shadowRef.current.position.y = (-heightAboveGround / scale) + 0.015
       const shadowScale = Math.max(0.35, 1 - heightAboveGround * 0.22)
       shadowRef.current.scale.set(shadowScale, shadowScale, 1)
       const shadowMat = shadowRef.current.material as THREE.MeshBasicMaterial
@@ -219,10 +219,10 @@ export function Character({
 
   return (
     <group ref={group} position={position} scale={scale} dispose={null}>
-      {/* Centrar el modelo verticalmente para que las plantas de los pies toquen exactamente el suelo (Y=0) */}
-      <primitive object={scene} position={[0, 0.5, 0]} />
+      {/* El esqueleto del modelo ya tiene su base en los pies (Y=0) */}
+      <primitive object={scene} />
       {/* Sombra de contacto en el suelo */}
-      <mesh ref={shadowRef} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}>
+      <mesh ref={shadowRef} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.015, 0]}>
         <circleGeometry args={[0.42, 16]} />
         <meshBasicMaterial color="#16102e" transparent opacity={0.48} depthWrite={false} />
       </mesh>
