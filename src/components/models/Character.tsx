@@ -21,6 +21,7 @@ export interface CharacterProps {
 const GRAVITY = -24
 const JUMP_FORCE = 8.5
 const COLLISION_RADIUS = 0.42
+const UP = new THREE.Vector3(0, 1, 0)
 
 export function Character({
   speed = 5.8,
@@ -40,6 +41,8 @@ export function Character({
 
   const [currentAction, setCurrentAction] = useState<ActionName>('Idle')
   const direction = useRef(new THREE.Vector3())
+  const camForward = useRef(new THREE.Vector3())
+  const camRight = useRef(new THREE.Vector3())
   const velocityY = useRef(0)
   const isGrounded = useRef(true)
 
@@ -67,7 +70,7 @@ export function Character({
   }, [currentAction, actions])
 
   // Bucle de movimiento, física (gravedad/salto) y colisiones
-  useFrame((_, delta) => {
+  useFrame(({ camera }, delta) => {
     if (!group.current) return
 
     // Sincronizar referencia de posición para la cámara y los cubos de proyectos
@@ -122,10 +125,10 @@ export function Character({
       }
     }
 
-    // 3. Movimiento horizontal (X y Z)
-    const moveZ = Number(backward) - Number(forward)
-    const moveX = Number(right) - Number(left)
-    const isMoving = moveX !== 0 || moveZ !== 0
+    // 3. Movimiento horizontal relativo a la orientación de la cámara
+    const inputForward = Number(forward) - Number(backward)
+    const inputRight = Number(right) - Number(left)
+    const isMoving = inputForward !== 0 || inputRight !== 0
 
     // Animación de correr / quieto
     const nextAction: ActionName = isMoving ? 'Walk' : 'Idle'
@@ -134,7 +137,20 @@ export function Character({
     }
 
     if (isMoving) {
-      direction.current.set(moveX, 0, moveZ).normalize()
+      // Proyectar dirección de la cámara sobre el plano horizontal XZ
+      camera.getWorldDirection(camForward.current)
+      camForward.current.y = 0
+      camForward.current.normalize()
+
+      // Vector perpendicular hacia la derecha de la cámara
+      camRight.current.crossVectors(camForward.current, UP).normalize()
+
+      // Calcular dirección combinada según las teclas pulsadas
+      direction.current.set(0, 0, 0)
+      direction.current.addScaledVector(camForward.current, inputForward)
+      direction.current.addScaledVector(camRight.current, inputRight)
+      direction.current.normalize()
+
       const moveDist = speed * delta
       const dx = direction.current.x * moveDist
       const dz = direction.current.z * moveDist
