@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import SectionTitle from '../atoms/SectionTitle';
 import ProfilePhoto from '../molecules/ProfilePhoto';
+import ScrollSpider from '../molecules/ScrollSpider';
 import { useLang } from '../../context/LangContext';
 // import photo from '../../assets/photo.jpg'; // ← descomenta y agrega tu foto
 
@@ -34,6 +35,8 @@ export default function AboutMe() {
       id="sobre-mi"
       component="section"
       sx={{
+        position: 'relative',
+        overflow: 'visible',
         py: { xs: 6, md: 8 },
         px: { xs: 3, md: 10 },
         display: 'flex',
@@ -42,6 +45,9 @@ export default function AboutMe() {
         justifyContent: 'center',
       }}
     >
+      {/* Telaraña y araña que desciende con el scroll */}
+      <ScrollSpider />
+
       <Grid container spacing={6} sx={{ maxWidth: 1100, width: '100%', alignItems: 'center' }}>
         <Grid size={{ xs: 12, md: 4 }} sx={{ display: 'flex', justifyContent: 'center' }}>
           <ProfilePhoto /* src={photo} */ />

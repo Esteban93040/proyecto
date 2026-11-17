@@ -16,21 +16,21 @@ const socials = [
   {
     label: 'LinkedIn',
     icon: <LinkedInIcon sx={{ fontSize: 36 }} />,
-    href: 'https://www.linkedin.com/in/tu-usuario', // ← reemplaza
+    href: 'https://www.linkedin.com/in/esteban-andres-espinosa-975a86304/', 
     color: '#0a66c2',
     hoverColor: '#1e86e5',
   },
   {
     label: 'GitHub',
     icon: <GitHubIcon sx={{ fontSize: 36 }} />,
-    href: 'https://github.com/tu-usuario', // ← reemplaza
+    href: 'https://github.com/Esteban93040', // ← reemplaza
     color: '#e6edf3',
     hoverColor: '#ffffff',
   },
   {
     label: 'WhatsApp',
     icon: <WhatsAppIcon sx={{ fontSize: 36 }} />,
-    href: 'https://wa.me/573001234567', // ← reemplaza (formato internacional)
+    href: 'https://wa.me/+573218022672', // ← reemplaza (formato internacional)
     color: '#25d366',
     hoverColor: '#40e980',
   },

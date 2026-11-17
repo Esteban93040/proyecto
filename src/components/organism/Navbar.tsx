@@ -8,11 +8,15 @@ import { useLang } from '../../context/LangContext';
 const navigation = {
   es: [
     { label: 'Sobre mí', href: '#sobre-mi' },
+    { label: 'Experiencia', href: '#experiencia' },
+    { label: 'Educación', href: '#educacion' },
     { label: 'Proyectos', href: '#proyectos' },
     { label: 'Contacto', href: '#contacto' },
   ],
   en: [
     { label: 'About me', href: '#sobre-mi' },
+    { label: 'Experience', href: '#experiencia' },
+    { label: 'Education', href: '#educacion' },
     { label: 'Projects', href: '#proyectos' },
     { label: 'Contact', href: '#contacto' },
   ],
@@ -43,7 +47,17 @@ export default function Navbar() {
           <Button
             onClick={() => setLang(next)}
             aria-label={`Cambiar idioma a ${next === 'es' ? 'español' : 'inglés'}`}
-            sx={{ justifySelf: 'start', minWidth: 0, px: { xs: 1, sm: 1.5 }, color: '#fff' }}
+            sx={{
+              justifySelf: 'start',
+              minWidth: 0,
+              px: { xs: 1, sm: 1.5 },
+              color: '#fff',
+              transition: 'color 0.25s ease',
+              '&:hover': {
+                color: '#ff2222',
+                bgcolor: 'transparent',
+              },
+            }}
           >
             {next.toUpperCase()}
           </Button>
@@ -52,7 +66,12 @@ export default function Navbar() {
           <Box
             component="nav"
             aria-label={lang === 'es' ? 'Navegación principal' : 'Main navigation'}
-            sx={{ display: 'flex', justifyContent: 'center', gap: { xs: 0, sm: 1 } }}
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              gap: { xs: 0, sm: 1 },
+            }}
           >
             {navigation[lang].map(({ label, href }) => (
               <Button
@@ -65,6 +84,11 @@ export default function Navbar() {
                   px: { xs: 0.75, sm: 1.5 },
                   whiteSpace: 'nowrap',
                   fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                  transition: 'color 0.25s ease',
+                  '&:hover': {
+                    color: '#ff2222',
+                    bgcolor: 'transparent',
+                  },
                 }}
               >
                 {label}
